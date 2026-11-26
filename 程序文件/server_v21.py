@@ -9,12 +9,12 @@ import webbrowser
 from uuid import uuid4
 
 ROOT=Path(__file__).resolve().parent
-v20=runpy.run_path(str(ROOT/'1120_server_v20.py'),init_globals={'_test_transport':globals().get('_test_transport')})
+v20=runpy.run_path(str(ROOT/'server_v20.py'),init_globals={'_test_transport':globals().get('_test_transport')})
 ctx=v20['ctx']
 X=v20['X']
 E=ctx['E']
 desktop_state=v20['desktop_state']
-F=runpy.run_path(str(ROOT/'1122_重点关注扩展_v1.py'))
+F=runpy.run_path(str(ROOT/'重点关注扩展_v1.py'))
 lib=F['Library'](E['CONFIG_ROOT'])
 ctx['prepare_focus']=lib.compose
 E['validate_result'].__globals__['finalize_focus']=F['finalize']
@@ -47,7 +47,7 @@ def remember(draft):
 
 
 def persist(job):
-    name='1122_问题收藏记录_'+job['id']+'_v1.json'
+    name='问题收藏记录_'+job['id']+'_v1.json'
     path=E['RECORD_ROOT']/name
     rt=E['RUNTIME']
     rt['atomic_json'](path,rt['snapshot'](job,ctx['REVIEWS'].get(job['id'],{}),ctx['JOB_DOCS'].get(job['id'],[])))
@@ -126,7 +126,7 @@ class Handler(v20['Handler']):
             html=v20['page_bytes']().replace(b'</body>',b'<script src="/focus-extension.js"></script></body>')
             return self.reply(html,ctype='text/html; charset=utf-8')
         if self.path=='/focus-extension.js':
-            return self.reply((ROOT/'1122_重点关注界面_v1.js').read_bytes(),ctype='application/javascript; charset=utf-8')
+            return self.reply((ROOT/'重点关注界面_v1.js').read_bytes(),ctype='application/javascript; charset=utf-8')
         return super().do_GET()
 
     def do_POST(self):

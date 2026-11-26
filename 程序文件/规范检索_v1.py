@@ -3,8 +3,8 @@ from contextlib import closing
 from collections import Counter,defaultdict
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent
-DB=ROOT.parent/'配置文件/1120_规范原文库_v1.sqlite3'
-TERMS=(ROOT.parent/'配置文件/1120_施工术语表_v1.txt').read_text('utf-8-sig').split()
+DB=ROOT.parent/'配置文件/规范原文库_v1.sqlite3'
+TERMS=(ROOT.parent/'配置文件/施工术语表_v1.txt').read_text('utf-8-sig').split()
 CACHE={};LOCK=threading.Lock()
 def grams(s,k):
     return [v[i:i+k] for v in re.findall(r'[\u3400-\u9fff]+',s) for i in range(len(v)-k+1) if v[i:i+k] not in ('应符合','应按照','的规定','的要求')]

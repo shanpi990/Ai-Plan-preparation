@@ -17,8 +17,8 @@ DEFAULT={'base':'https://api.deepseek.com','key':'','model':'deepseek-flash','js
 BATCH_CHAR_LIMIT=8000
 MAX_OUTPUT_TOKENS=65536
 REVIEW_GROUP_SIZE=20
-STRUCTURE=runpy.run_path(str(ROOT/'1109_文档结构解析_v6.py'))
-LOC=runpy.run_path(str(ROOT/'1109_Word章节定位_v10.py'))
+STRUCTURE=runpy.run_path(str(ROOT/'文档结构解析_v6.py'))
+LOC=runpy.run_path(str(ROOT/'Word章节定位_v10.py'))
 
 class Blob(ctypes.Structure):
     _fields_=[('cbData',wt.DWORD),('pbData',ctypes.POINTER(ctypes.c_ubyte))]
@@ -39,7 +39,7 @@ def crypt(raw,decrypt=False):
     finally: kernel.LocalFree(out.pbData)
 
 def config_path():
-    files=list(CONFIG_ROOT.glob('*_模型设置_v*.bin'))
+    files=list(CONFIG_ROOT.glob('模型设置_v*.bin')) + list(CONFIG_ROOT.glob('*_模型设置_v*.bin'))
     return max(files,key=lambda p:p.stat().st_mtime_ns) if files else None
 
 def load_config():
@@ -89,7 +89,7 @@ def validate_base(cfg):
         raise ValueError('接口地址格式不正确。')
 
 def version_path(task,suffix):
-    prefix=datetime.datetime.now().strftime('%m%d')+'_'+task
+    prefix=task
     n=1
     while (CONFIG_ROOT/f'{prefix}_v{n}{suffix}').exists(): n+=1
     return CONFIG_ROOT/f'{prefix}_v{n}{suffix}'
@@ -134,7 +134,7 @@ def parse_document(name,raw):
 
 
 def load_sample(key):
-    name={'before':'1108_主体评审前参考_v1.docx','after':'1108_主体评审后参考_v1.docx'}[key]
+    name={'before':'主体评审前参考_v1.docx','after':'主体评审后参考_v1.docx'}[key]
     return parse_document(name,(REFERENCE_ROOT/name).read_bytes())|{'key':key}
 
 def chunks(doc,limit=BATCH_CHAR_LIMIT):
@@ -451,7 +451,7 @@ def estimate(doc,design):
     return len(chunks(doc))+sum(len(chunks(d)) for d in design)+1
 
 def run_diagnosis(job,doc,design,cfg,focus,call=model,on_checkpoint=None):
-    flow=runpy.run_path(str(ROOT/'1109_全篇复核流程_v9.py'))
+    flow=runpy.run_path(str(ROOT/'全篇复核流程_v9.py'))
     return flow['run_diagnosis'](globals(),job,doc,design,cfg,focus,call,on_checkpoint)
 
 def report(job,reviews,source_documents=None):

@@ -2,7 +2,7 @@ import json, os, re, uuid, datetime
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parent.parent
-CONFIG=ROOT/'配置文件/1120_审查运行配置_v1.json'
+CONFIG=ROOT/'配置文件/审查运行配置_v1.json'
 
 def parallel_limit(value):
     if type(value) is not int or not 1 <= value <= 10:
@@ -38,7 +38,7 @@ def recent_initial_seconds():
                       and r.get('status')=='completed' and isinstance(r.get('requestSeconds'),(int,float))]
             if values:
                 return sum(values)/len(values)
-            history = ROOT/'运行数据/1121_历史审查用时_v1.json'
+            history = ROOT/'运行数据/历史审查用时_v1.json'
             if history.is_file():
                 entry = json.loads(history.read_text('utf-8-sig')).get(job.get('checkpointKey'),{})
                 if entry.get('documentSha256')==job.get('document',{}).get('sha256'):

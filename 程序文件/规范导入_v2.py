@@ -2,8 +2,8 @@ import sqlite3,json,base64,runpy,threading,uuid,datetime
 from contextlib import contextmanager
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent
-DB=ROOT.parent/'配置文件/1120_规范原文库_v1.sqlite3'
-P=runpy.run_path(str(ROOT/'1120_条文解析_v1.py'))
+DB=ROOT.parent/'配置文件/规范原文库_v1.sqlite3'
+P=runpy.run_path(str(ROOT/'条文解析_v1.py'))
 parse=P['parse']
 TASKS={};LOCK=threading.Lock()
 @contextmanager

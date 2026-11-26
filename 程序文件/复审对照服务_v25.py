@@ -10,9 +10,9 @@ import threading
 from datetime import datetime
 
 ROOT = Path(__file__).resolve().parent
-base = runpy.run_path(str(ROOT/'1124_图纸参数服务_v23.py'), init_globals={'_test_transport':globals().get('_test_transport')})
-core = runpy.run_path(str(ROOT/'1124_复审对照_v2.py'))
-param_export = runpy.run_path(str(ROOT/'1125_项目参数导出_v1.py'))
+base = runpy.run_path(str(ROOT/'图纸参数服务_v23.py'), init_globals={'_test_transport':globals().get('_test_transport')})
+core = runpy.run_path(str(ROOT/'复审对照_v2.py'))
+param_export = runpy.run_path(str(ROOT/'项目参数导出_v1.py'))
 ctx, E, X = base['ctx'], base['E'], base['X']
 desktop_state, native_selection = base['desktop_state'], base['native_selection']
 dispatch_previous, report_previous = X['dispatch'], E['report']
@@ -194,7 +194,7 @@ def dispatch(context,path,data):
         else:
             raise ValueError('请先选定上轮审查记录。')
         reviews=core['evaluate'](candidate,job['issues'],reviews)
-        dest=E['RECORD_ROOT']/('1124_复审对照记录_'+job['id']+'_v1.json')
+        dest=E['RECORD_ROOT']/('复审对照记录_'+job['id']+'_v1.json')
         rt=E['RUNTIME']
         rt['atomic_json'](dest,rt['snapshot'](dict(job,roundComparison=candidate),reviews,context['JOB_DOCS'][job['id']]))
         job['roundComparison']=candidate
@@ -248,10 +248,10 @@ E['report']=report
 class Handler(base['Handler']):
     def do_GET(self):
         if self.path=='/submission.js':
-            scripts=['1124_编审联动界面_v1.js','1124_图纸参数界面_v2.js','1124_复审对照界面_v2.js','1125_参数导出界面_v1.js']
+            scripts=['编审联动界面_v1.js','图纸参数界面_v2.js','复审对照界面_v2.js','参数导出界面_v1.js']
             return self.reply(b'\n'.join((ROOT/name).read_bytes() for name in scripts),ctype='application/javascript; charset=utf-8')
         if self.path=='/round-compare.css':
-            return self.reply((ROOT/'1124_复审对照样式_v2.css').read_bytes(),ctype='text/css; charset=utf-8')
+            return self.reply((ROOT/'复审对照样式_v2.css').read_bytes(),ctype='text/css; charset=utf-8')
         return super().do_GET()
 
 

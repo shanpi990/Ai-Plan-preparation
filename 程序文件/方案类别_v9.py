@@ -1,5 +1,5 @@
 """按方案类别保存关注项，旧版关注项迁入通用类别。"""
-import copy,datetime,json,re
+import copy,json,re
 
 
 def validate_library(data):
@@ -22,7 +22,7 @@ def validate_library(data):
 
 
 def load_library(root,legacy_focus=()):
-    files=list(root.glob('*_方案类别关注项_v*.json'))
+    files=list(root.glob('方案类别关注项_v*.json')) + list(root.glob('*_方案类别关注项_v*.json'))
     if files:
         path=max(files,key=lambda p:p.stat().st_mtime_ns)
         try:return validate_library(json.loads(path.read_text(encoding='utf-8-sig')))
@@ -36,7 +36,7 @@ def load_library(root,legacy_focus=()):
 
 def save_library(root,data):
     library=validate_library(data)
-    prefix=datetime.datetime.now().strftime('%m%d')+'_方案类别关注项'
+    prefix='方案类别关注项'
     n=1
     while (root/f'{prefix}_v{n}.json').exists():n+=1
     (root/f'{prefix}_v{n}.json').write_text(json.dumps(library,ensure_ascii=False,indent=2),encoding='utf-8')

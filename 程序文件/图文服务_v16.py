@@ -3,19 +3,19 @@ from pathlib import Path
 import runpy,json,io,threading,sys,webbrowser,socket
 ROOT=Path(__file__).parent
 runtime_paths=list(sys.path)
-base=runpy.run_path(str(ROOT/'1120_审查服务基础_v12.py'))
+base=runpy.run_path(str(ROOT/'审查服务基础_v12.py'))
 # 旧引擎会插入历史虚拟环境路径；新版使用启动入口选定的完整运行环境。
 sys.path[:]=runtime_paths
 ctx=base['Handler'].do_POST.__globals__
-structured=runpy.run_path(str(ROOT/'1120_结构化回查_v2.py'))
+structured=runpy.run_path(str(ROOT/'结构化回查_v2.py'))
 structured['install'](ctx['E'])
-X=runpy.run_path(str(ROOT/'1120_基础功能_v16.py'))
+X=runpy.run_path(str(ROOT/'基础功能_v16.py'))
 X['install'](ctx,transport=globals().get('_test_transport'))
 
 class Handler(base['Handler']):
     def do_GET(self):
-        if self.path=='/':return self.reply((ROOT/'1117_施工方案AI审查_v15.html').read_bytes(),ctype='text/html; charset=utf-8')
-        if self.path=='/extended-ui.js':return self.reply((ROOT/'1117_界面扩展_v15.js').read_bytes(),ctype='application/javascript; charset=utf-8')
+        if self.path=='/':return self.reply((ROOT/'施工方案AI审查_v15.html').read_bytes(),ctype='text/html; charset=utf-8')
+        if self.path=='/extended-ui.js':return self.reply((ROOT/'界面扩展_v15.js').read_bytes(),ctype='application/javascript; charset=utf-8')
         return super().do_GET()
     def do_POST(self):
         if self.path in ('/api/start','/api/estimate'):

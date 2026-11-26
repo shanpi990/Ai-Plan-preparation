@@ -7,8 +7,8 @@ import webbrowser
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parent
-v22=runpy.run_path(str(ROOT/'1124_编审联动服务_v22.py'),init_globals={'_test_transport':globals().get('_test_transport')})
-D=runpy.run_path(str(ROOT/'1124_图纸参数工作区_v1.py'))
+v22=runpy.run_path(str(ROOT/'编审联动服务_v22.py'),init_globals={'_test_transport':globals().get('_test_transport')})
+D=runpy.run_path(str(ROOT/'图纸参数工作区_v1.py'))
 E,X,ctx=v22['E'],v22['X'],v22['ctx']
 origin=D['ORIGIN']
 draw=D['Workspace'](ROOT,ROOT.parent/'运行数据/图纸识别',E)
@@ -203,7 +203,7 @@ E['report']=report
 class Handler(v22['Handler']):
     def do_GET(self):
         if self.path=='/submission.js':
-            content=(ROOT/'1124_编审联动界面_v1.js').read_bytes()+b'\n'+(ROOT/'1124_图纸参数界面_v2.js').read_bytes()
+            content=(ROOT/'编审联动界面_v1.js').read_bytes()+b'\n'+(ROOT/'图纸参数界面_v2.js').read_bytes()
             return self.reply(content,ctype='application/javascript; charset=utf-8')
         return super().do_GET()
 

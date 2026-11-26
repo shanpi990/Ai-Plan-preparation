@@ -3,10 +3,10 @@ from http.server import ThreadingHTTPServer,BaseHTTPRequestHandler
 from pathlib import Path
 import json,runpy,secrets,hashlib,base64,threading,webbrowser,sys,datetime
 ROOT=Path(__file__).parent
-E=runpy.run_path(str(ROOT/'1120_AI诊断引擎_v11.py'))
-I=runpy.run_path(str(ROOT/'1120_结果导入_v11.py'))
+E=runpy.run_path(str(ROOT/'AI诊断引擎_v11.py'))
+I=runpy.run_path(str(ROOT/'结果导入_v11.py'))
 TOKEN=secrets.token_urlsafe(32);DOCS={};JOBS={};JOB_DOCS={};REVIEWS={};RAW_DOCS={}
-TYPES=runpy.run_path(str(ROOT/'1109_方案类别_v9.py'))
+TYPES=runpy.run_path(str(ROOT/'方案类别_v9.py'))
 ACTIVE_ID=None
 
 def meta(doc):return {k:v for k,v in doc.items() if k!='rows'}|{'count':len(doc['rows'])}
@@ -18,7 +18,7 @@ def linked_document(job):
     docs=JOB_DOCS.get(job['id'],[])
     return meta(docs[0]) if docs and docs[0] is not None else None
 
-FLOW=runpy.run_path(str(ROOT/'1120_全篇复核流程_v10.py'))
+FLOW=runpy.run_path(str(ROOT/'全篇复核流程_v10.py'))
 
 def active_reviews(job,reviews):
     result={}
@@ -62,7 +62,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_response(status);self.send_header('Content-Type',ctype);self.send_header('Cache-Control','no-store')
         self.send_header('Content-Length',str(len(raw)));self.send_header('X-Content-Type-Options','nosniff');self.end_headers();self.wfile.write(raw)
     def do_GET(self):
-        if self.path=='/':return self.reply((ROOT/'1109_施工方案AI审查_v11.html').read_bytes(),ctype='text/html; charset=utf-8')
+        if self.path=='/':return self.reply((ROOT/'施工方案AI审查_v11.html').read_bytes(),ctype='text/html; charset=utf-8')
         if self.path=='/api/bootstrap':
             try:config=E['public_config'](E['load_config']());error=''
             except ValueError as e:config=E['public_config'](E['DEFAULT']);error=str(e)

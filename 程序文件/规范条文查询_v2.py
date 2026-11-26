@@ -13,8 +13,8 @@ from urllib.request import urlopen
 
 
 CONFIG = Path(__file__).resolve().parent.parent / '配置文件'
-DATABASE = CONFIG / '1119_规范条文库_v2.sqlite3'
-CATALOG = CONFIG / '1119_深基坑规范目录_v2.json'
+DATABASE = CONFIG / '规范条文库_v2.sqlite3'
+CATALOG = CONFIG / '深基坑规范目录_v2.json'
 HEADING = re.compile(r'^(\d+(?:\.\d+)?)\s*[^\d.\s]')
 CLAUSE = re.compile(r'(?m)^\s*(\d{1,2}\.\d{1,2}\.\d{1,2})[ \t\u3000\xa0]*(?=[^\d.\s])')
 

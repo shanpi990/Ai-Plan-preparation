@@ -3,19 +3,19 @@ from pathlib import Path
 from datetime import datetime, timedelta, timezone
 import runpy,json,threading,sys,webbrowser,sqlite3
 ROOT=Path(__file__).parent
-previous=runpy.run_path(str(ROOT/'1120_图文服务_v16.py'),init_globals={'_test_transport':globals().get('_test_transport')})
+previous=runpy.run_path(str(ROOT/'图文服务_v16.py'),init_globals={'_test_transport':globals().get('_test_transport')})
 ctx=previous['ctx'];X=previous['X'];LocalServer=previous['LocalServer']
-runpy.run_path(str(ROOT/'1119_整改分批与记录导入_v1.py'))['install'](ctx,X)
-standard_catalog = runpy.run_path(str(ROOT/'1119_规范条文查询_v2.py'))['lookup']
+runpy.run_path(str(ROOT/'整改分批与记录导入_v1.py'))['install'](ctx,X)
+standard_catalog = runpy.run_path(str(ROOT/'规范条文查询_v2.py'))['lookup']
 
 def standards_for_today():
     day = datetime.now(timezone(timedelta(hours=8))).date().isoformat()
     return standard_catalog(as_of=day)
 
 import hashlib
-lib=runpy.run_path(str(ROOT/'1120_规范导入_v2.py'))
+lib=runpy.run_path(str(ROOT/'规范导入_v2.py'))
 lib['initialize']()
-search=runpy.run_path(str(ROOT/'1120_规范检索_v1.py'))['retrieve']
+search=runpy.run_path(str(ROOT/'规范检索_v1.py'))['retrieve']
 def catalog(category):
     builtin=standards_for_today()['standards']
     items={b['code']:dict(b,book_id=None,whole_mandatory=bool(b['whole_standard_mandatory']),default_selected=category=='excavation' and b.get('default_selected',False)) for b in builtin}
@@ -58,7 +58,7 @@ def library_request(action,data):
 
 class Handler(previous['Handler']):
     def do_GET(self):
-        files={'/extended-ui.js':('1119_界面扩展_v16.js','application/javascript'),'/amend-work.js':('1119_整改工作区_v2.js','application/javascript'),'/':('1119_施工方案AI审查_v17.html','text/html'),'/desktop-ui.js':('1117_客户端界面_v1.js','application/javascript'),'/desktop.css':('1117_客户端样式_v2.css','text/css'),'/feishu-theme.css':('1117_飞书主题_v1.css','text/css'),'/standards-ui.js':('1120_规范选择界面_v2.js','application/javascript')}
+        files={'/extended-ui.js':('界面扩展_v16.js','application/javascript'),'/amend-work.js':('整改工作区_v2.js','application/javascript'),'/':('施工方案AI审查_v17.html','text/html'),'/desktop-ui.js':('客户端界面_v1.js','application/javascript'),'/desktop.css':('客户端样式_v2.css','text/css'),'/feishu-theme.css':('飞书主题_v1.css','text/css'),'/standards-ui.js':('规范选择界面_v2.js','application/javascript')}
         if self.path in files:
             name,kind=files[self.path];return self.reply((ROOT/name).read_bytes(),ctype=kind+'; charset=utf-8')
         return super().do_GET()

@@ -1,11 +1,11 @@
 """逐批初审、全文回查、同类合并的诊断流程。"""
 import datetime,copy,re,json,runpy,time,unicodedata
 from pathlib import Path
-SEARCH=runpy.run_path(str(Path(__file__).with_name('1120_规范检索_v1.py')))
+SEARCH=runpy.run_path(str(Path(__file__).with_name('规范检索_v1.py')))
 RETRIEVE=SEARCH['retrieve']
 
-MATCH = runpy.run_path(str(Path(__file__).with_name('1120_引文核对_v1.py')))
-BUDGET_FILE = Path(__file__).resolve().parents[1]/'配置文件/1120_规范检索预算_v1.json'
+MATCH = runpy.run_path(str(Path(__file__).with_name('引文核对_v1.py')))
+BUDGET_FILE = Path(__file__).resolve().parents[1]/'配置文件/规范检索预算_v1.json'
 INTRO = re.compile(r'(?:下列|以下|如下|下述)(?:各项|各款)?(?:规定|要求|内容|条件)?[：:。.]?$')
 REQUIREMENT = re.compile(r'应|必须|不得|严禁|限值|不宜|宜为|至少|不超过|[0-9０-９]')
 
@@ -129,9 +129,9 @@ def inherit_basis(item,parents):
     apply_basis_priority(item)
 
 
-WIRE=runpy.run_path(str(Path(__file__).with_name('1120_紧凑审查资料_v1.py')))
+WIRE=runpy.run_path(str(Path(__file__).with_name('紧凑审查资料_v1.py')))
 
-Pool=runpy.run_path(str(Path(__file__).with_name('1121_并行审查调度_v1.py')))['ReviewPool']
+Pool=runpy.run_path(str(Path(__file__).with_name('并行审查调度_v1.py')))['ReviewPool']
 
 class BatchTooLarge(Exception):
     pass

@@ -1,7 +1,7 @@
 """恢复诊断记录和原文；不调用模型。"""
 import copy, re, runpy, secrets, hashlib, json
 from pathlib import Path
-LOC=runpy.run_path(str(Path(__file__).with_name("1109_Word章节定位_v10.py")))
+LOC=runpy.run_path(str(Path(__file__).with_name("Word章节定位_v10.py")))
 
 
 def source_slot(source,job):
@@ -33,7 +33,7 @@ def bind_source(job,index,name,raw,root,engine):
     if hashlib.sha256(raw).hexdigest()!=expected.get('sha256'):
         raise ValueError('文件与该记录的原文件不一致，请选择诊断时使用的文件。')
     # 旧记录使用当时的解析器恢复段号，避免新版表格/图片解析改变定位。
-    parser=engine if expected.get('parserVersion')=='v6' else runpy.run_path(str(root/'1109_AI诊断引擎_v5.py'))
+    parser=engine if expected.get('parserVersion')=='v6' else runpy.run_path(str(root/'AI诊断引擎_v5.py'))
     doc=parser['parse_document'](expected['name'],raw)
     if Path(expected['name']).suffix.lower()=='.docx' and doc.get('locationVersion')!='v10':doc=LOC['enrich_docx'](doc,raw)
     return matching_citations(job,index,doc)
@@ -79,7 +79,7 @@ def import_record(record,available,raw_docs,root):
     elif previous not in ('done','failed','cancelled'):raise ValueError('诊断状态格式错误。')
     # 旧版只保存本地起止时间。已核实的历史用时按运行记录匹配，避开同方案的其他审查。
     if previous == 'done' and 'activeReviewSeconds' not in job:
-        times_path = root.parent / '运行数据' / '1121_历史审查用时_v1.json'
+        times_path = root.parent / '运行数据' / '历史审查用时_v1.json'
         try:
             times = json.loads(times_path.read_text('utf-8-sig'))
         except (OSError, ValueError):
@@ -103,7 +103,7 @@ def import_record(record,available,raw_docs,root):
                 if hashlib.sha256(raw).hexdigest()==sha:raw_docs[sha]=raw
         snapshot=snapshots[index] if index<len(snapshots) else None
         if sha in raw_docs and (snapshot is None or snapshot.get('locationVersion')!='v10' or (snapshot.get('imagesBySource') and snapshot.get('visuals'))):
-            if engine is None:engine=runpy.run_path(str(root/'1109_AI诊断引擎_v10.py'))
+            if engine is None:engine=runpy.run_path(str(root/'AI诊断引擎_v10.py'))
             snapshot=bind_source(job,index,expected['name'],raw_docs[sha],root,engine)
         if snapshot is not None:
             if not isinstance(snapshot,dict) or snapshot.get('sha256')!=expected.get('sha256') or not isinstance(snapshot.get('rows'),list):raise ValueError('原文快照与记录不一致。')
@@ -114,7 +114,7 @@ def import_record(record,available,raw_docs,root):
             try:
                 if expected.get('parserVersion')=='v6':doc=matching_citations(job,index,doc)
                 elif sha in raw_docs:
-                    if engine is None:engine=runpy.run_path(str(root/'1109_AI诊断引擎_v10.py'))
+                    if engine is None:engine=runpy.run_path(str(root/'AI诊断引擎_v10.py'))
                     doc=bind_source(job,index,expected['name'],raw_docs[sha],root,engine)
                 else:doc=None
             except ValueError:doc=None

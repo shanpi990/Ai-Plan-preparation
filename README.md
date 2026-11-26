@@ -2,6 +2,10 @@
 
 这个项目用于审查施工方案、在原 Word 段落上挂批注，并将人工采纳的整改写入 Word。下载源码后，可以先用随附的脱敏节选和历史审查记录演示，查看结果和导出 Word 均可在本地完成。
 
+## 下载 Windows 客户端
+
+到 [Releases](https://github.com/shanpi990/Ai-Plan-preparation/releases) 下载 `AI-Plan-Review-v5.0.0-Windows-x64.zip`，完整解压到本地可写文件夹，双击根目录的 `施工方案AI审查.exe`。客户端自带 Python。桌面窗口使用 [Microsoft Edge WebView2 Runtime](https://developer.microsoft.com/microsoft-edge/webview2/)。
+
 ## 从源码启动
 
 在 64 位 Windows 上安装 Python 3.12。在仓库根目录打开 PowerShell，依次执行以下命令。桌面窗口使用 Microsoft Edge WebView2 Runtime。
@@ -9,13 +13,13 @@
 ```powershell
 py -3.12 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -B -X utf8 ".\程序文件\1120_桌面客户端_v4.py"
+.\.venv\Scripts\python.exe -B -X utf8 ".\程序文件\桌面客户端_v4.py"
 ```
 
 也可以从源码运行本地网页服务。另开浏览器访问 `http://127.0.0.1:8876`。该端口被占用时，程序会依次使用 8877 至 8895 中的首个空闲端口。按 Ctrl+C 停止服务。
 
 ```powershell
-.\.venv\Scripts\python.exe -B -X utf8 ".\程序文件\1124_复审对照服务_v25.py"
+.\.venv\Scripts\python.exe -B -X utf8 ".\程序文件\复审对照服务_v25.py"
 ```
 
 ## 演示数据

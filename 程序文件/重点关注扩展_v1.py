@@ -129,7 +129,7 @@ class Library:
         self.folder=Path(folder)
 
     def path(self, kind):
-        return self.folder / ('1122_业主要求库_v1.json' if kind=='owners' else '1122_问题收藏库_v1.json')
+        return self.folder / ('业主要求库_v1.json' if kind=='owners' else '问题收藏库_v1.json')
 
     def read(self, kind):
         p=self.path(kind)

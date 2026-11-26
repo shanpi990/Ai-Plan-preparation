@@ -3,19 +3,19 @@ from pathlib import Path
 import json, runpy, sys, threading, webbrowser
 
 ROOT = Path(__file__).parent
-previous = runpy.run_path(str(ROOT / '1120_server_v19.py'), init_globals={'_test_transport': globals().get('_test_transport')})
+previous = runpy.run_path(str(ROOT / 'server_v19.py'), init_globals={'_test_transport': globals().get('_test_transport')})
 ctx = previous['ctx']; X = previous['X']; LocalServer = previous['LocalServer']
 desktop_state = previous['desktop_state']
-runpy.run_path(str(ROOT / '1120_整改工作流_v2.py'))['install'](ctx, X)
+runpy.run_path(str(ROOT / '整改工作流_v2.py'))['install'](ctx, X)
 
 STATIC = {
-    '/parallel.js': ('1121_并行审查界面_v1.js', 'application/javascript'),
-    '/rectify.js': ('1120_整改交付_v1.js', 'application/javascript'),
-    '/rectify.css': ('1120_整改交付_v1.css', 'text/css'),
-    '/visual.css': ('1120_视觉升级_v1.css', 'text/css'),
-    '/impact.js': ('1121_成效看板_v3.js', 'application/javascript'),
+    '/parallel.js': ('并行审查界面_v1.js', 'application/javascript'),
+    '/rectify.js': ('整改交付_v1.js', 'application/javascript'),
+    '/rectify.css': ('整改交付_v1.css', 'text/css'),
+    '/visual.css': ('视觉升级_v1.css', 'text/css'),
+    '/impact.js': ('成效看板_v3.js', 'application/javascript'),
 }
-PAGE = '1119_施工方案AI审查_v17.html'
+PAGE = '施工方案AI审查_v17.html'
 
 
 def page_bytes():

@@ -5,8 +5,8 @@ ROOT=Path(__file__).resolve().parent;TASK=ROOT.parent
 WORK=TASK/'运行数据'
 WORK.mkdir(parents=True,exist_ok=True)
 os.environ['TEMP']=os.environ['TMP']=str(WORK)
-sys.path.insert(0,str(ROOT/'1117_客户端运行库_v1'))
-LOG=WORK/'1117_客户端运行日志_v2.log'
+sys.path.insert(0,str(ROOT/'客户端运行库_v1'))
+LOG=WORK/'客户端运行日志_v2.log'
 if sys.stdout is None:sys.stdout=LOG.open('a',encoding='utf-8')
 if sys.stderr is None:sys.stderr=sys.stdout
 
@@ -15,11 +15,11 @@ def main():
     webview.settings["ALLOW_DOWNLOADS"]=True
     testing=False
     def no_model(*args,**kwargs):raise AssertionError('桌面验证禁止调用模型。')
-    entry='1122_server_v21.py' if '--legacy' in sys.argv else '1124_复审对照服务_v25.py'
+    entry='server_v21.py' if '--legacy' in sys.argv else '复审对照服务_v25.py'
     module=runpy.run_path(str(ROOT/entry),init_globals={'_test_transport':no_model if testing else None})
 
     # 交付版打开脱敏节选记录，配套原件仍由客户端按 SHA-256 关联。
-    example=TASK/'审查记录'/'1126_深基坑216条审查演示_v1.json'
+    example=TASK/'审查记录'/'深基坑216条审查演示_v1.json'
     if example.is_file():
         try:
             ctx=module['ctx']
@@ -73,11 +73,11 @@ def main():
         bridge._loaded=True
         try:
             from System.Drawing import Icon
-            window.native.Icon=Icon(str(ROOT/'1117_客户端图标_v1.ico'))
+            window.native.Icon=Icon(str(ROOT/'客户端图标_v1.ico'))
         except Exception:pass
     window.events.closing+=closing;window.events.loaded+=loaded
     try:
-        profile=TASK/'配置文件'/'1117_客户端浏览数据_v1'
+        profile=TASK/'配置文件'/'客户端浏览数据_v1'
         webview.start(None,gui='edgechromium',debug=False,private_mode=False,storage_path=str(profile))
     finally:
         server.shutdown();server.server_close();thread.join(timeout=3)

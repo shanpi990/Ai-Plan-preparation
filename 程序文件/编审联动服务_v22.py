@@ -12,9 +12,9 @@ from pathlib import Path
 
 PARAM_GUIDE='正文数值与同一部位、工况的已确认参数不一致时，按前后矛盾或技术性错误（数值错误）报告，在该问题的 parameterRefs 数组回写本批对应的 CS 编号，方案原文仍须逐字引用。'
 ROOT=Path(__file__).resolve().parent
-v21=runpy.run_path(str(ROOT/'1122_server_v21.py'),init_globals={'_test_transport':globals().get('_test_transport')})
-R=runpy.run_path(str(ROOT/'1124_送审包规则_v1.py'))
-C=runpy.run_path(str(ROOT/'1124_编审覆盖与对比_v2.py'))
+v21=runpy.run_path(str(ROOT/'server_v21.py'),init_globals={'_test_transport':globals().get('_test_transport')})
+R=runpy.run_path(str(ROOT/'送审包规则_v1.py'))
+C=runpy.run_path(str(ROOT/'编审覆盖与对比_v2.py'))
 active=ContextVar('submission_work',default=None)
 ctx,X,E=v21['ctx'],v21['X'],v21['E']
 desktop_state=v21['desktop_state']
@@ -322,7 +322,7 @@ class Handler(v21['Handler']):
 
     def do_GET(self):
         if self.path=='/submission.js':
-            return self.reply((ROOT/'1124_编审联动界面_v1.js').read_bytes(),ctype='application/javascript; charset=utf-8')
+            return self.reply((ROOT/'编审联动界面_v1.js').read_bytes(),ctype='application/javascript; charset=utf-8')
         return super().do_GET()
 
 

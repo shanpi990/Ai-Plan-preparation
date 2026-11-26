@@ -15,7 +15,7 @@ from datetime import datetime
 from pathlib import Path
 from uuid import uuid4
 
-ZONE=runpy.run_path(str(Path(__file__).with_name('1124_图纸分区选参_v1.py')))
+ZONE=runpy.run_path(str(Path(__file__).with_name('图纸分区选参_v1.py')))
 ORIGIN = '审查端图纸识别'
 TYPES = ('设计总说明','岩土工程勘察报告')
 FLAGS = getattr(subprocess,'CREATE_NO_WINDOW',0)
@@ -130,7 +130,7 @@ class Workspace:
         self.engine=Path(root)/'读图引擎'
         self.cache=Path(cache)
         self.E=E
-        self.pool=runpy.run_path(str(Path(root)/'1121_并行审查调度_v1.py'))['ReviewPool']
+        self.pool=runpy.run_path(str(Path(root)/'并行审查调度_v1.py'))['ReviewPool']
         self.state={}
         self.operations={}
         self.lock=threading.RLock()
@@ -261,7 +261,7 @@ class Workspace:
                 pages=[n for n in range(1,doc['pages']+1) if not (folder/f'page_{n}.json').is_file()]
                 if pages:missing.append((folder,pages))
             if missing:
-                settings=self.engine.parent.parent/'配置文件/1120_审查运行配置_v1.json'
+                settings=self.engine.parent.parent/'配置文件/审查运行配置_v1.json'
                 options=json.loads(settings.read_bytes()) if settings.is_file() else {}
                 workers=ocr_workers(cfg.get('ocrParallelism',options.get('读图并行数')))
                 args=self.command('ocr','--parallel',workers)

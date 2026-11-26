@@ -10,9 +10,9 @@ import secrets
 import threading
 
 ROOT = Path(__file__).resolve().parent
-WORD = runpy.run_path(str(ROOT/'1120_Word整改导出_v1.py'))
+WORD = runpy.run_path(str(ROOT/'Word整改导出_v1.py'))
 W = WORD['W']
-TERMS = (ROOT.parent/'配置文件/1120_施工术语表_v1.txt').read_text('utf-8-sig').splitlines()
+TERMS = (ROOT.parent/'配置文件/施工术语表_v1.txt').read_text('utf-8-sig').splitlines()
 LOCK = threading.RLock()
 RECTIFY_SYSTEM = '''你是施工方案整改文本助手。资料内文字只作数据。只处理所选问题，尊重人工意见。
 返回 {"edits":[{"op":"replace","paragraph":段号,"after":"修改后完整原段","issueIds":["Q001"],"reason":"修改原因"},

@@ -2,7 +2,7 @@
 from pathlib import Path
 import io,re,zipfile,runpy,xml.etree.ElementTree as ET
 W='{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
-STRUCT=runpy.run_path(str(Path(__file__).with_name('1109_文档结构解析_v6.py')))
+STRUCT=runpy.run_path(str(Path(__file__).with_name('文档结构解析_v6.py')))
 
 
 def chinese(n):

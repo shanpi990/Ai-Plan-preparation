@@ -17,11 +17,11 @@ DEFAULT={'base':'https://api.deepseek.com','key':'','model':'deepseek-flash','js
 BATCH_CHAR_LIMIT=8000
 MAX_OUTPUT_TOKENS=65536
 REVIEW_GROUP_SIZE=20
-STRUCTURE=runpy.run_path(str(ROOT/'1109_文档结构解析_v6.py'))
-LOC=runpy.run_path(str(ROOT/'1109_Word章节定位_v10.py'))
+STRUCTURE=runpy.run_path(str(ROOT/'文档结构解析_v6.py'))
+LOC=runpy.run_path(str(ROOT/'Word章节定位_v10.py'))
 
-QUOTE=runpy.run_path(str(ROOT/'1120_引文核对_v1.py'))
-REVIEW_VALIDATION=runpy.run_path(str(ROOT/'1120_结构化回查_v2.py'))
+QUOTE=runpy.run_path(str(ROOT/'引文核对_v1.py'))
+REVIEW_VALIDATION=runpy.run_path(str(ROOT/'结构化回查_v2.py'))
 
 class Blob(ctypes.Structure):
     _fields_=[('cbData',wt.DWORD),('pbData',ctypes.POINTER(ctypes.c_ubyte))]
@@ -42,7 +42,7 @@ def crypt(raw,decrypt=False):
     finally: kernel.LocalFree(out.pbData)
 
 def config_path():
-    files=list(CONFIG_ROOT.glob('*_模型设置_v*.bin'))
+    files=list(CONFIG_ROOT.glob('模型设置_v*.bin')) + list(CONFIG_ROOT.glob('*_模型设置_v*.bin'))
     return max(files,key=lambda p:p.stat().st_mtime_ns) if files else None
 
 def load_config():
@@ -92,7 +92,7 @@ def validate_base(cfg):
         raise ValueError('接口地址格式不正确。')
 
 def version_path(task,suffix):
-    prefix=datetime.datetime.now().strftime('%m%d')+'_'+task
+    prefix=task
     n=1
     while (CONFIG_ROOT/f'{prefix}_v{n}{suffix}').exists(): n+=1
     return CONFIG_ROOT/f'{prefix}_v{n}{suffix}'
@@ -137,7 +137,7 @@ def parse_document(name,raw):
 
 
 def load_sample(key):
-    name={'before':'1108_主体评审前参考_v1.docx','after':'1108_主体评审后参考_v1.docx'}[key]
+    name={'before':'主体评审前参考_v1.docx','after':'主体评审后参考_v1.docx'}[key]
     return parse_document(name,(REFERENCE_ROOT/name).read_bytes())|{'key':key}
 
 def batch_options(record, resume=False):
@@ -246,9 +246,9 @@ SYSTEM+=BASIS_RULES
 REVIEW_SYSTEM+=BASIS_RULES+'\n逐条复核候选依据能否直接支撑结论，不支撑时删掉或降为参照，在 reason 写明判断。保留问题时返回复核后的完整 basis 数组。'
 REVIEW_SYSTEM+='\n对未落实类依据，以条文摘句反查回查原文及表格。先在 reason 中列出方案已部分满足要求的原文。若已满足，删除该依据；部分满足时把问题收窄到确实缺少的部分。'
 FINAL_SYSTEM+=BASIS_RULES+'\n沿用回查判断，合并组输出最终保留的依据。'
-FORMATS=runpy.run_path(str(ROOT/'1120_审查输入格式_v1.py'))
-WIRE=runpy.run_path(str(ROOT/'1120_紧凑审查资料_v1.py'))
-RUNTIME=runpy.run_path(str(ROOT/'1120_审查运行配置_v1.py'))
+FORMATS=runpy.run_path(str(ROOT/'审查输入格式_v1.py'))
+WIRE=runpy.run_path(str(ROOT/'紧凑审查资料_v1.py'))
+RUNTIME=runpy.run_path(str(ROOT/'审查运行配置_v1.py'))
 SYSTEM+=WIRE['GUIDE']
 REVIEW_SYSTEM+=WIRE['GUIDE']
 FINAL_SYSTEM+=WIRE['GUIDE']
@@ -647,7 +647,7 @@ def run_diagnosis(job,doc,design,cfg,focus,call=model,on_checkpoint=None):
 
     update_time()
     try:
-        flow=runpy.run_path(str(ROOT/'1120_全篇复核流程_v10.py'))
+        flow=runpy.run_path(str(ROOT/'全篇复核流程_v10.py'))
         return flow['run_diagnosis'](globals(),job,doc,design,cfg,focus,call,checkpoint)
     finally:
         update_time()

@@ -31,7 +31,7 @@ def crypt(raw,decrypt=False):
     finally: kernel.LocalFree(out.pbData)
 
 def config_path():
-    files=list(ROOT.glob('*_模型设置_v*.bin'))
+    files=list(ROOT.glob('模型设置_v*.bin')) + list(ROOT.glob('*_模型设置_v*.bin'))
     return max(files,key=lambda p:p.stat().st_mtime_ns) if files else None
 
 def load_config():
@@ -81,7 +81,7 @@ def validate_base(cfg):
         raise ValueError('接口地址格式不正确。')
 
 def version_path(task,suffix):
-    prefix=datetime.datetime.now().strftime('%m%d')+'_'+task
+    prefix=task
     n=1
     while (ROOT/f'{prefix}_v{n}{suffix}').exists(): n+=1
     return ROOT/f'{prefix}_v{n}{suffix}'
@@ -148,7 +148,7 @@ def parse_document(name,raw):
     return dict(name=Path(name).name,sha256=hashlib.sha256(raw).hexdigest(),rows=rows)
 
 def load_sample(key):
-    name={'before':'1108_主体评审前参考_v1.docx','after':'1108_主体评审后参考_v1.docx'}[key]
+    name={'before':'主体评审前参考_v1.docx','after':'主体评审后参考_v1.docx'}[key]
     return parse_document(name,(ROOT/name).read_bytes())|{'key':key}
 
 def chunks(doc,limit=BATCH_CHAR_LIMIT):
