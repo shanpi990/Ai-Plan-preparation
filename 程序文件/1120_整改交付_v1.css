@@ -1,0 +1,18 @@
+.rect-export {display:flex; flex-wrap:wrap; gap:12px 22px; align-items:center; border-block:1px solid var(--line); padding:12px 0}
+.rect-export label {display:inline-flex; gap:6px; align-items:center}
+.rect-export select {width:auto}
+.rect-export button {margin-inline-start:auto}
+.rect-diff,.rect-path,#rectResult small,.rect-hit {overflow-wrap:anywhere;white-space:pre-wrap}
+.rect-diff {margin-bottom:8px; line-height:1.65; max-height:12rem; overflow:auto}
+.rect-diff del {color:var(--bp-red);text-decoration:line-through}
+.rect-diff ins {background:color-mix(in srgb,var(--bp-green) 22%,transparent);text-decoration:none}
+.rect-diff mark {background:var(--bp-yellow);color:var(--bp-navy)}
+.rect-anchor {color:var(--muted)}
+.rect-insert,.rect-hit small,#rectResult small {display:block}
+.rect-insert {color:var(--bp-steel);margin-bottom:5px}
+.rect-pass {color:var(--bp-green)}
+.rect-error {color:var(--bp-red)}
+.rect-hit {display:block;padding:9px;border-bottom:1px solid var(--line)}
+#rectResult button,#amendRows .issueInfo ~ button {margin-top:8px}
+#rectRetry[hidden] {display:none}
+

@@ -1,0 +1,36 @@
+/* 与审查页、成效看板共用随主题切换的面板与文字颜色。 */
+.round-panel,.round-detail,.round-picker { color:var(--semi-color-text-0,inherit); }
+.round-panel,.round-detail { border:1px solid var(--semi-color-border,#dce2eb); border-radius:9px; padding:15px 18px; margin:12px 0; background:var(--semi-color-bg-1,var(--surface)); }
+.round-panel[hidden] { display:none; }
+.round-head,.round-filters,.round-metrics,.round-actions { display:flex; align-items:center; flex-wrap:wrap; gap:8px; }
+.round-head h3,.round-panel h3 { font-size:16px; margin:0; }
+.round-head small,.round-side small,.round-picker label,.round-passages small { color:var(--semi-color-text-2,#667489); }
+.round-head>button { margin-left:auto; }
+.round-filters,.round-metrics { margin:12px 0 8px; }
+.round-filters button { padding:5px 9px; min-height:31px; }
+.round-filters button[aria-pressed=true] { border-color:var(--semi-color-primary,#356adc); color:var(--semi-color-primary,#356adc); background:var(--semi-color-primary-light-default,rgba(65,112,210,.12)); }
+.round-panel details { border-top:1px solid var(--semi-color-border,#dce2eb); margin-top:12px; padding-top:10px; }
+.round-panel summary { cursor:pointer; font-weight:600; }
+.round-row { display:flex; width:100%; gap:9px; margin-top:5px; align-items:center; justify-content:flex-start; text-align:left; }
+.round-row>span:last-child { margin-left:auto; white-space:nowrap; font-size:12px; }
+.round-tag { display:inline-block; padding:2px 7px; border-radius:5px; line-height:1.5; font-size:12px; }
+.round-tag.warn { color:var(--semi-color-warning-active,#965500); background:var(--semi-color-warning-light-default,rgba(228,150,20,.15)); font-weight:650; }
+.round-tag.neutral { color:var(--semi-color-primary,#345c9b); background:var(--semi-color-primary-light-default,rgba(80,126,203,.12)); }
+.round-tag.weak { color:var(--semi-color-text-2,#667489); background:var(--semi-color-fill-0,rgba(125,134,151,.09)); }
+.round-cols { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px; margin:12px 0; }
+.round-side,.round-passages>div { padding:12px; min-width:0; overflow-wrap:anywhere; background:var(--semi-color-fill-0,rgba(125,134,151,.06)); border-radius:6px; }
+.round-side h4,.round-passages p { margin:0 0 6px; }
+.round-side p,.round-passages p,.round-side blockquote { line-height:1.65; white-space:pre-wrap; }
+.round-side blockquote { margin:6px 0; padding-left:8px; border-left:2px solid var(--semi-color-border,#ced9e6); font-size:12px; }
+.round-picker label { display:grid; gap:5px; margin:10px 0 15px; }
+.round-picker select { width:100%; min-width:0; }
+.round-actions { justify-content:flex-end; }
+.round-metrics span { border-right:1px solid var(--semi-color-border,#ced9e6); padding-right:12px; }
+@media(max-width:850px){.round-cols{grid-template-columns:1fr}.round-row{flex-wrap:wrap}}
+
+.round-weak { margin:14px 0; padding:14px; border:1px solid var(--semi-color-warning,#be7d20); border-radius:8px; }
+.round-weak h4 { margin:0 0 8px; }
+.round-weak article { padding:10px 0; border-top:1px solid var(--semi-color-border,#dce2eb); }
+.round-weak article p { margin:5px 0; }
+.round-weak small { display:block; color:var(--semi-color-text-2,#667489); }
+.round-weak button { margin-top:7px; }
